@@ -3,11 +3,22 @@ package app
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
+	"github.com/takazu8108180/personal-palette/infra/database"
 )
 
 func Run() error {
-	// Initialize the application
-	// This is where you would set up your application, such as connecting to a database, setting up routes, etc.
+	db, err := database.NewDB()
+	if err != nil {
+		return errors.WithStack(err)
+	}
+
+	// TODO: Logger
+
+	defer func() {
+		if err := db.Close(); err != nil {
+			panic(errors.WithStack(err))
+		}
+	}()
 
 	server, err := buildServer()
 	if err != nil {
