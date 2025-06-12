@@ -40,13 +40,15 @@ func NewDB() (*DB, error) {
 
 // Close DB connection．
 func (d *DB) CloseDB() error {
-	sqlDb, err := d.conn.DB()
+	db, err := d.db.DB()
 	if err != nil {
 		return errors.WithStack(err)
 	}
 
-	err = sqlDb.Close()
+	err = db.Close()
 	if err != nil {
 		return errors.WithStack(err)
 	}
+
+	return nil
 }
