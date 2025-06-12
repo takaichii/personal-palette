@@ -1,11 +1,10 @@
 module github.com/takazu8108180/personal-palette
 
-go 1.23
-
-toolchain go1.23.9
+go 1.24
 
 require (
-	github.com/gin-gonic/gin v1.10.0
+	github.com/gin-gonic/gin v1.10.1
+	github.com/joho/godotenv v1.5.1
 	github.com/pkg/errors v0.9.1
 	gorm.io/driver/postgres v1.6.0
 	gorm.io/gorm v1.30.0

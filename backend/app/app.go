@@ -1,9 +1,9 @@
 package app
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
-	"github.com/takazu8108180/personal-palette/infra/database"
+	"github.com/takazu8108180/personal-palette/backend/infra/database"
+	"github.com/takazu8108180/personal-palette/backend/infra/web"
 )
 
 func Run() error {
@@ -14,13 +14,9 @@ func Run() error {
 
 	// TODO: Logger
 
-	defer func() {
-		if err := db.Close(); err != nil {
-			panic(errors.WithStack(err))
-		}
-	}()
+	defer db.CloseDB()
 
-	server, err := buildServer()
+	server, err := web.BuildServer(db)
 	if err != nil {
 		return errors.WithStack(err)
 	}
@@ -31,9 +27,4 @@ func Run() error {
 	}
 
 	return nil
-}
-
-func buildServer() (*gin.Engine, error) {
-	server := gin.Default()
-	return server, nil
 }

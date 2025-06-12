@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/takazu8108180/personal-palette/app"
+	"github.com/takazu8108180/personal-palette/backend/app"
 )
 
 func main() {
