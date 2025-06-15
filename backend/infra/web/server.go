@@ -5,6 +5,7 @@ import (
 	"github.com/takazu8108180/personal-palette/backend/adapter/web/controller"
 	"github.com/takazu8108180/personal-palette/backend/adapter/web/presenter"
 	"github.com/takazu8108180/personal-palette/backend/infra/database"
+	"github.com/takazu8108180/personal-palette/backend/infra/repository"
 	"github.com/takazu8108180/personal-palette/backend/usecase/interactor"
 )
 
@@ -23,7 +24,8 @@ func BuildServer(db *database.DB) (*gin.Engine, error) {
 }
 
 func buildControllers(db *database.DB) (*Controllers, error) {
-	usecase := interactor.NewContentsInteractor(db)
+	repository := repository.NewContentRepository(db)
+	usecase := interactor.NewContentsInteractor(repository)
 	presenter := presenter.NewContentPresenter(usecase)
 	contentsController := controller.NewContentController(presenter)
 

@@ -3,7 +3,6 @@ package database
 import (
 	"fmt"
 	"os"
-	"strconv"
 
 	"github.com/joho/godotenv"
 	"github.com/pkg/errors"
@@ -12,7 +11,7 @@ import (
 )
 
 type DB struct {
-	db *gorm.DB
+	Conn *gorm.DB
 }
 
 func NewDB() (*DB, error) {
@@ -21,11 +20,10 @@ func NewDB() (*DB, error) {
 		return nil, errors.WithStack(err)
 	}
 
-	port, _ := strconv.Atoi(os.Getenv("DB_PORT"))
 	dbConn := fmt.Sprintf(
 		"host=%s port=%s user=%s dbname=%s password=%s sslmode=disable TimeZone=Asia/Tokyo",
 		os.Getenv("DB_HOST"),
-		port,
+		os.Getenv("DB_PORT"),
 		os.Getenv("USERNAME"),
 		os.Getenv("DATABASE"),
 		os.Getenv("USERPASS"))
@@ -35,12 +33,12 @@ func NewDB() (*DB, error) {
 		return nil, errors.WithStack(err)
 	}
 
-	return &DB{db: db}, nil
+	return &DB{Conn: db}, nil
 }
 
 // Close DB connection．
 func (d *DB) CloseDB() error {
-	db, err := d.db.DB()
+	db, err := d.Conn.DB()
 	if err != nil {
 		return errors.WithStack(err)
 	}

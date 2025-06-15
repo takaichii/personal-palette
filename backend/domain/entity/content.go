@@ -1,6 +1,10 @@
 package entity
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type Content struct {
 	id        string
@@ -14,10 +18,12 @@ type Content struct {
 	updatedAt time.Time
 }
 
-func NewAccount(
-	id, title, genre, review, notes, tag string,
+// NewContent creates a new Content instance.
+func NewContent(
+	title, genre, review, notes, tag string,
 	score int,
 ) *Content {
+	id := uuid.New().String()
 	return &Content{
 		id:        id,
 		title:     title,
@@ -31,6 +37,7 @@ func NewAccount(
 	}
 }
 
+// Getters
 func (c *Content) ID() string {
 	return c.id
 }
@@ -58,27 +65,34 @@ func (c *Content) CreatedAt() time.Time {
 func (c *Content) UpdatedAt() time.Time {
 	return c.updatedAt
 }
+
+// Setters
 func (c *Content) SetTitle(title string) {
 	c.title = title
-	c.updatedAt = time.Now()
+	c.touchUpdatedAt()
 }
 func (c *Content) SetGenre(genre string) {
 	c.genre = genre
-	c.updatedAt = time.Now()
+	c.touchUpdatedAt()
 }
 func (c *Content) SetReview(review string) {
 	c.review = review
-	c.updatedAt = time.Now()
+	c.touchUpdatedAt()
 }
 func (c *Content) SetNotes(notes string) {
 	c.notes = notes
-	c.updatedAt = time.Now()
+	c.touchUpdatedAt()
 }
 func (c *Content) SetTag(tag string) {
 	c.tag = tag
-	c.updatedAt = time.Now()
+	c.touchUpdatedAt()
 }
 func (c *Content) SetScore(score int) {
 	c.score = score
+	c.touchUpdatedAt()
+}
+
+// Private method to update the updatedAt timestamp.
+func (c *Content) touchUpdatedAt() {
 	c.updatedAt = time.Now()
 }

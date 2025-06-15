@@ -2,24 +2,40 @@ package interactor
 
 import (
 	"context"
-	"fmt"
 
-	"github.com/takazu8108180/personal-palette/backend/infra/database"
+	"github.com/takazu8108180/personal-palette/backend/domain/entity"
+	"github.com/takazu8108180/personal-palette/backend/domain/repository"
 	"github.com/takazu8108180/personal-palette/backend/usecase"
+	"github.com/takazu8108180/personal-palette/backend/usecase/request"
+	"github.com/takazu8108180/personal-palette/backend/usecase/response"
 )
 
 var _ = usecase.ContentUsecase((*ContentInteractor)(nil))
 
 type ContentInteractor struct {
-	db *database.DB
+	contentRepository repository.ContentRepository
 }
 
-func NewContentsInteractor(db *database.DB) *ContentInteractor {
-	return &ContentInteractor{db: db}
+func NewContentsInteractor(contentRepository repository.ContentRepository) *ContentInteractor {
+	return &ContentInteractor{
+		contentRepository: contentRepository,
+	}
 }
 
-func (i *ContentInteractor) Create(ctx context.Context, input *usecase.ContentCreateInput) (*usecase.ContentCreateOutput, error) {
-	fmt.Println("TODO: ContentsInteractor Create called")
+func (i *ContentInteractor) Create(ctx context.Context, input *request.ContentCreateInput) (*response.ContentCreateOutput, error) {
+	content := entity.NewContent(
+		input.Title,
+		input.Genre,
+		input.Review,
+		input.Notes,
+		input.Tag,
+		input.Score,
+	)
 
-	return &usecase.ContentCreateOutput{Content: nil}, nil
+	err := i.contentRepository.Create(content)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.ContentCreateOutput{ID: content.ID()}, nil
 }
