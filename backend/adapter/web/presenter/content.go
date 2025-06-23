@@ -4,50 +4,32 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/takazu8108180/personal-palette/backend/adapter/web/presenter/model"
-	"github.com/takazu8108180/personal-palette/backend/usecase"
-	"github.com/takazu8108180/personal-palette/backend/usecase/request"
+	"github.com/takazu8108180/personal-palette/backend/adapter/web/model"
+	"github.com/takazu8108180/personal-palette/backend/usecase/response"
 )
 
+var _ ContentPresenter = (*ContentPresenterImpl)(nil)
+
 type ContentPresenter interface {
-	Create(ctx *gin.Context)
+	Create(ctx *gin.Context, outputData *response.ContentCreateOutput)
+	PresentError(ctx *gin.Context, status int, message string)
 }
 
-type ContentPresenterImpl struct {
-	usecase usecase.ContentUsecase
+type ContentPresenterImpl struct{}
+
+func NewContentPresenter() *ContentPresenterImpl {
+	return &ContentPresenterImpl{}
 }
 
-func NewContentPresenter(usecase usecase.ContentUsecase) *ContentPresenterImpl {
-	return &ContentPresenterImpl{
-		usecase: usecase,
-	}
-}
-
-func (p *ContentPresenterImpl) Create(ctx *gin.Context) {
-	var requestData model.ContentCreateRequestData
-	if err := ctx.ShouldBindJSON(&requestData); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request data"})
-		return
-	}
-
-	usecaseInput := &request.ContentCreateInput{
-		Title:  requestData.Title,
-		Genre:  requestData.Genre,
-		Review: requestData.Review,
-		Notes:  requestData.Notes,
-		Tag:    requestData.Tag,
-		Score:  requestData.Score,
-	}
-
-	outputData, err := p.usecase.Create(ctx, usecaseInput)
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
+func (p *ContentPresenterImpl) Create(ctx *gin.Context, outputData *response.ContentCreateOutput) {
 
 	responseData := &model.ContentCreateResponseData{
 		ID: outputData.ID,
 	}
 
 	ctx.JSON(http.StatusCreated, responseData)
+}
+
+func (p *ContentPresenterImpl) PresentError(ctx *gin.Context, status int, message string) {
+	ctx.JSON(status, gin.H{"error": message})
 }

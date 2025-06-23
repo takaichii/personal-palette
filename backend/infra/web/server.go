@@ -26,8 +26,8 @@ func BuildServer(db *database.DB) (*gin.Engine, error) {
 func buildControllers(db *database.DB) (*Controllers, error) {
 	repository := repository.NewContentRepository(db)
 	usecase := interactor.NewContentsInteractor(repository)
-	presenter := presenter.NewContentPresenter(usecase)
-	contentsController := controller.NewContentController(presenter)
+	presenter := presenter.NewContentPresenter()
+	contentsController := controller.NewContentController(usecase, presenter)
 
 	return &Controllers{
 		ContentController: contentsController,
