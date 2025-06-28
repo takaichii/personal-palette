@@ -10,6 +10,7 @@
       "request": "launch",
       "mode": "debug",
       "program": "${workspaceFolder}/backend/cmd/main.go",
+      "cwd": "${workspaceFolder}",
       "env": {},
       "args": []
     }
