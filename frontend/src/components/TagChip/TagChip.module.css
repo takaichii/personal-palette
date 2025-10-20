@@ -1,0 +1,23 @@
+/* Personal Palette – Tag chip palette for pastel categorization. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.primary {
+  background: rgba(166, 177, 225, 0.35);
+}
+
+.accent {
+  background: rgba(255, 214, 165, 0.5);
+}
+
+.neutral {
+  background: rgba(0, 0, 0, 0.05);
+}

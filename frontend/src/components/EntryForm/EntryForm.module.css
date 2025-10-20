@@ -1,0 +1,100 @@
+/* Personal Palette – Form styling inviting thoughtful writing. */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fieldset {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.legend {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.input,
+.select,
+.textarea {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(51, 51, 51, 0.15);
+  background: rgba(255, 255, 255, 0.95);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(166, 177, 225, 0.2);
+  outline: none;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.range {
+  width: 100%;
+}
+
+.rangeValue {
+  font-size: 0.85rem;
+  color: rgba(51, 51, 51, 0.65);
+}
+
+.chipsPreview {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 4px 10px;
+  background: rgba(154, 219, 197, 0.35);
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submit {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-highlight));
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.inputError {
+  border-color: rgba(255, 115, 115, 0.7);
+}
+
+.error {
+  color: rgba(255, 115, 115, 0.9);
+  font-size: 0.8rem;
+}

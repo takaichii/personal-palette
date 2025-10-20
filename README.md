@@ -71,3 +71,18 @@ project
 
 ## 環境構築
 
+
+## Frontend (Personal Palette)
+
+MVP向けのフロントエンド雛形は `frontend/` に配置しています。Vite + React + TypeScript 構成で、CSS Modulesによる穏やかなUIスケルトンを提供します。
+
+### セットアップ
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+- `npm run test` で Vitest スモークテストを実行できます。
+- APIはモックデータに依存しており、将来的にReact Query等へ差し替え可能な構成です。

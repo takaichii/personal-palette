@@ -1,0 +1,6 @@
+/* Personal Palette – Entry creation layout with ample breathing room. */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

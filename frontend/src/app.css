@@ -1,0 +1,20 @@
+/* Personal Palette – App shell spacing and responsive rhythm. */
+@import './styles/variables.css';
+@import './styles/globals.css';
+
+.appShell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 24px;
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 16px;
+  }
+}

@@ -1,0 +1,92 @@
+/* Personal Palette – Layout styling with soft gradients and composed whitespace. */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at top left, rgba(166, 177, 225, 0.18), transparent),
+    var(--color-bg);
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+}
+
+.title {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.nav {
+  display: flex;
+  gap: 16px;
+}
+
+.navLink {
+  padding: 8px 12px;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.navLink:hover {
+  background-color: rgba(166, 177, 225, 0.2);
+}
+
+.active {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.main {
+  flex: 1;
+  width: min(960px, 92vw);
+  margin: 32px auto;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.875rem;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .main {
+    padding: 20px;
+    margin: 24px auto;
+  }
+}

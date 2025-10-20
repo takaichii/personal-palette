@@ -1,0 +1,68 @@
+/* Personal Palette – Entry card layering whispers of memories. */
+.card {
+  display: block;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(51, 51, 51, 0.08);
+}
+
+.header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.iconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: rgba(166, 177, 225, 0.25);
+  display: grid;
+  place-items: center;
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.meta {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: rgba(51, 51, 51, 0.6);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.more {
+  font-size: 0.75rem;
+  color: rgba(51, 51, 51, 0.6);
+}
+
+.preview {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(51, 51, 51, 0.85);
+}
+
+.placeholder {
+  font-style: italic;
+}
