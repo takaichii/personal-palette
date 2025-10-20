@@ -1,0 +1,17 @@
+/* Personal Palette – Not found view with soft guidance. */
+.wrapper {
+  text-align: center;
+  padding: 80px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.link {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+  color: #fff;
+}

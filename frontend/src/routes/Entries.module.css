@@ -1,0 +1,76 @@
+/* Personal Palette – Entries view balancing filters and results. */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header h1 {
+  margin-bottom: 8px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+input,
+select,
+button {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(51, 51, 51, 0.12);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+button[type='submit'] {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-highlight));
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.tagCloud {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tagButton {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.status {
+  font-style: italic;
+  color: rgba(51, 51, 51, 0.6);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}

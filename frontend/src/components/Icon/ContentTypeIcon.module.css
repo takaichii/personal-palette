@@ -1,0 +1,5 @@
+/* Personal Palette – Icon wrapper ensuring consistent sizing. */
+:global(svg) {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

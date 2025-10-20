@@ -1,0 +1,41 @@
+/* Personal Palette – Chart placeholder radiating gentle anticipation. */
+.panel {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header h3 {
+  margin: 0;
+}
+
+.caption {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: rgba(51, 51, 51, 0.65);
+}
+
+.placeholder {
+  border: 1px dashed rgba(166, 177, 225, 0.6);
+  border-radius: calc(var(--radius-lg) - 6px);
+  padding: 16px;
+  background: rgba(166, 177, 225, 0.08);
+}
+
+.placeholder ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.placeholder li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
