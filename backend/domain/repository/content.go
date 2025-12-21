@@ -6,4 +6,6 @@ import (
 
 type ContentRepository interface {
 	Create(content *entity.Content) error
+	// List returns all contents. No filtering/pagination for now.
+	List() ([]*entity.Content, error)
 }

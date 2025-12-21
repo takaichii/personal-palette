@@ -96,3 +96,22 @@ func (c *Content) SetScore(score int) {
 func (c *Content) touchUpdatedAt() {
 	c.updatedAt = time.Now()
 }
+
+// NewContentFromRecord creates a Content instance from persisted data (used when loading from DB).
+func NewContentFromRecord(
+	id, title, genre, review, notes, tag string,
+	score int,
+	createdAt, updatedAt time.Time,
+) *Content {
+	return &Content{
+		id:        id,
+		title:     title,
+		genre:     genre,
+		review:    review,
+		notes:     notes,
+		tag:       tag,
+		score:     score,
+		createdAt: createdAt,
+		updatedAt: updatedAt,
+	}
+}

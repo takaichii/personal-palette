@@ -11,6 +11,7 @@ type Controllers struct {
 
 func AttachRouter(router *gin.RouterGroup, controllers *Controllers) {
 	router.POST("/contents", controllers.ContentController.Create)
+	router.GET("/contents", controllers.ContentController.List)
 	// router.GET("/users/:id", controllers.UserController.GetUser)
 	// router.PUT("/users/:id", controllers.UserController.UpdateUser)
 	// router.DELETE("/users/:id", controllers.UserController.DeleteUser)

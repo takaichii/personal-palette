@@ -39,3 +39,28 @@ func (r *ContentRepository) Create(content *entity.Content) error {
 
 	return nil
 }
+
+func (r *ContentRepository) List() ([]*entity.Content, error) {
+	var dtos []dto.ContentDTO
+	if err := r.db.Conn.Find(&dtos).Error; err != nil {
+		return nil, err
+	}
+
+	contents := make([]*entity.Content, 0, len(dtos))
+	for _, d := range dtos {
+		c := entity.NewContentFromRecord(
+			d.ID,
+			d.Title,
+			d.Genre,
+			d.Review,
+			d.Notes,
+			d.Tag,
+			d.Score,
+			d.CreatedAt,
+			d.UpdatedAt,
+		)
+		contents = append(contents, c)
+	}
+
+	return contents, nil
+}

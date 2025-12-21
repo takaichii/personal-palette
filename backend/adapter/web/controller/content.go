@@ -14,6 +14,7 @@ var _ ContentController = (*ContentControllerImpl)(nil)
 
 type ContentController interface {
 	Create(c *gin.Context)
+	List(c *gin.Context)
 }
 
 type ContentControllerImpl struct {
@@ -51,4 +52,14 @@ func (c *ContentControllerImpl) Create(ctx *gin.Context) {
 	}
 
 	c.presenter.Create(ctx, outputData)
+}
+
+func (c *ContentControllerImpl) List(ctx *gin.Context) {
+	outputData, err := c.usecase.List(ctx)
+	if err != nil {
+		c.presenter.PresentError(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.presenter.List(ctx, outputData)
 }

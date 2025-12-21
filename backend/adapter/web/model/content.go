@@ -11,3 +11,19 @@ type ContentCreateRequestData struct {
 type ContentCreateResponseData struct {
 	ID string `json:"id"`
 }
+
+type ContentListItemData struct {
+	ID        string `json:"id"`
+	Title     string `json:"title"`
+	Genre     string `json:"genre"`
+	Review    string `json:"review"`
+	Notes     string `json:"notes"`
+	Tag       string `json:"tag"`
+	Score     int    `json:"score"`
+	CreatedAt string `json:"createdAt"`
+	UpdatedAt string `json:"updatedAt"`
+}
+
+type ContentListResponseData struct {
+	Contents []ContentListItemData `json:"contents"`
+}
