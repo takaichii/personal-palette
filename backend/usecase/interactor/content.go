@@ -2,7 +2,6 @@ package interactor
 
 import (
 	"context"
-	"time"
 
 	"github.com/takazu8108180/personal-palette/backend/domain/entity"
 	"github.com/takazu8108180/personal-palette/backend/domain/repository"
@@ -33,7 +32,7 @@ func (i *ContentInteractor) Create(ctx context.Context, input *request.ContentCr
 		input.Score,
 	)
 
-	err := i.contentRepository.Create(content)
+	err := i.contentRepository.Create(ctx, content)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +41,7 @@ func (i *ContentInteractor) Create(ctx context.Context, input *request.ContentCr
 }
 
 func (i *ContentInteractor) List(ctx context.Context) (*response.ContentListOutput, error) {
-	entities, err := i.contentRepository.List()
+	entities, err := i.contentRepository.List(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -57,8 +56,8 @@ func (i *ContentInteractor) List(ctx context.Context) (*response.ContentListOutp
 			Notes:     e.Notes(),
 			Tag:       e.Tag(),
 			Score:     e.Score(),
-			CreatedAt: e.CreatedAt().Format(time.RFC3339),
-			UpdatedAt: e.UpdatedAt().Format(time.RFC3339),
+			CreatedAt: e.CreatedAt(),
+			UpdatedAt: e.UpdatedAt(),
 		})
 	}
 

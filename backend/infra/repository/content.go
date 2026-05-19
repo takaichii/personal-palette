@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"context"
+
 	"github.com/takazu8108180/personal-palette/backend/domain/entity"
 	"github.com/takazu8108180/personal-palette/backend/domain/repository"
 	"github.com/takazu8108180/personal-palette/backend/infra/database"
@@ -19,7 +21,7 @@ func NewContentRepository(db *database.DB) *ContentRepository {
 	}
 }
 
-func (r *ContentRepository) Create(content *entity.Content) error {
+func (r *ContentRepository) Create(ctx context.Context, content *entity.Content) error {
 	contentDTO := dto.ContentDTO{
 		ID:        content.ID(),
 		Title:     content.Title(),
@@ -32,7 +34,7 @@ func (r *ContentRepository) Create(content *entity.Content) error {
 		UpdatedAt: content.UpdatedAt(),
 	}
 
-	err := r.db.Conn.Create(&contentDTO).Error
+	err := r.db.Conn.WithContext(ctx).Create(&contentDTO).Error
 	if err != nil {
 		return err
 	}
@@ -40,9 +42,9 @@ func (r *ContentRepository) Create(content *entity.Content) error {
 	return nil
 }
 
-func (r *ContentRepository) List() ([]*entity.Content, error) {
+func (r *ContentRepository) List(ctx context.Context) ([]*entity.Content, error) {
 	var dtos []dto.ContentDTO
-	if err := r.db.Conn.Find(&dtos).Error; err != nil {
+	if err := r.db.Conn.WithContext(ctx).Find(&dtos).Error; err != nil {
 		return nil, err
 	}
 

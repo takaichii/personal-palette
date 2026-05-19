@@ -2,6 +2,7 @@ package presenter
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/takazu8108180/personal-palette/backend/adapter/web/model"
@@ -46,8 +47,8 @@ func (p *ContentPresenterImpl) List(ctx *gin.Context, outputData *response.Conte
 			Notes:     it.Notes,
 			Tag:       it.Tag,
 			Score:     it.Score,
-			CreatedAt: it.CreatedAt,
-			UpdatedAt: it.UpdatedAt,
+			CreatedAt: it.CreatedAt.Format(time.RFC3339),
+			UpdatedAt: it.UpdatedAt.Format(time.RFC3339),
 		})
 	}
 

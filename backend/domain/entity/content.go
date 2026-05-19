@@ -92,12 +92,10 @@ func (c *Content) SetScore(score int) {
 	c.touchUpdatedAt()
 }
 
-// Private method to update the updatedAt timestamp.
 func (c *Content) touchUpdatedAt() {
 	c.updatedAt = time.Now()
 }
 
-// NewContentFromRecord creates a Content instance from persisted data (used when loading from DB).
 func NewContentFromRecord(
 	id, title, genre, review, notes, tag string,
 	score int,
