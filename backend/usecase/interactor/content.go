@@ -32,10 +32,34 @@ func (i *ContentInteractor) Create(ctx context.Context, input *request.ContentCr
 		input.Score,
 	)
 
-	err := i.contentRepository.Create(content)
+	err := i.contentRepository.Create(ctx, content)
 	if err != nil {
 		return nil, err
 	}
 
 	return &response.ContentCreateOutput{ID: content.ID()}, nil
+}
+
+func (i *ContentInteractor) List(ctx context.Context) (*response.ContentListOutput, error) {
+	entities, err := i.contentRepository.List(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	items := make([]response.ContentListItem, 0, len(entities))
+	for _, e := range entities {
+		items = append(items, response.ContentListItem{
+			ID:        e.ID(),
+			Title:     e.Title(),
+			Genre:     e.Genre(),
+			Review:    e.Review(),
+			Notes:     e.Notes(),
+			Tag:       e.Tag(),
+			Score:     e.Score(),
+			CreatedAt: e.CreatedAt(),
+			UpdatedAt: e.UpdatedAt(),
+		})
+	}
+
+	return &response.ContentListOutput{Contents: items}, nil
 }

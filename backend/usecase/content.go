@@ -9,4 +9,6 @@ import (
 
 type ContentUsecase interface {
 	Create(ctx context.Context, input *request.ContentCreateInput) (*response.ContentCreateOutput, error)
+	// List returns list of contents
+	List(ctx context.Context) (*response.ContentListOutput, error)
 }

@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"context"
+
 	"github.com/takazu8108180/personal-palette/backend/domain/entity"
 	"github.com/takazu8108180/personal-palette/backend/domain/repository"
 	"github.com/takazu8108180/personal-palette/backend/infra/database"
@@ -19,7 +21,7 @@ func NewContentRepository(db *database.DB) *ContentRepository {
 	}
 }
 
-func (r *ContentRepository) Create(content *entity.Content) error {
+func (r *ContentRepository) Create(ctx context.Context, content *entity.Content) error {
 	contentDTO := dto.ContentDTO{
 		ID:        content.ID(),
 		Title:     content.Title(),
@@ -32,10 +34,35 @@ func (r *ContentRepository) Create(content *entity.Content) error {
 		UpdatedAt: content.UpdatedAt(),
 	}
 
-	err := r.db.Conn.Create(&contentDTO).Error
+	err := r.db.Conn.WithContext(ctx).Create(&contentDTO).Error
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func (r *ContentRepository) List(ctx context.Context) ([]*entity.Content, error) {
+	var dtos []dto.ContentDTO
+	if err := r.db.Conn.WithContext(ctx).Find(&dtos).Error; err != nil {
+		return nil, err
+	}
+
+	contents := make([]*entity.Content, 0, len(dtos))
+	for _, d := range dtos {
+		c := entity.NewContentFromRecord(
+			d.ID,
+			d.Title,
+			d.Genre,
+			d.Review,
+			d.Notes,
+			d.Tag,
+			d.Score,
+			d.CreatedAt,
+			d.UpdatedAt,
+		)
+		contents = append(contents, c)
+	}
+
+	return contents, nil
 }
