@@ -12,7 +12,7 @@ type ContentCreateResponseData struct {
 	ID string `json:"id"`
 }
 
-type ContentListItemData struct {
+type ContentItemData struct {
 	ID        string `json:"id"`
 	Title     string `json:"title"`
 	Genre     string `json:"genre"`
@@ -25,5 +25,5 @@ type ContentListItemData struct {
 }
 
 type ContentListResponseData struct {
-	Contents []ContentListItemData `json:"contents"`
+	Contents []ContentItemData `json:"contents"`
 }
