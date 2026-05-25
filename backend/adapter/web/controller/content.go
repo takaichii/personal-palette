@@ -15,6 +15,9 @@ var _ ContentController = (*ContentControllerImpl)(nil)
 type ContentController interface {
 	Create(c *gin.Context)
 	List(c *gin.Context)
+	GetByID(c *gin.Context)
+	// UpdateUser(c *gin.Context)
+	// DeleteUser(c *gin.Context)
 }
 
 type ContentControllerImpl struct {
@@ -62,4 +65,15 @@ func (c *ContentControllerImpl) List(ctx *gin.Context) {
 	}
 
 	c.presenter.List(ctx, outputData)
+}
+
+func (c *ContentControllerImpl) GetByID(ctx *gin.Context) {
+	id := ctx.Param("id")
+	outputData, err := c.usecase.GetByID(ctx, id)
+	if err != nil {
+		c.presenter.PresentError(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.presenter.GetByID(ctx, outputData)
 }

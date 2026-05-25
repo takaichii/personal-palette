@@ -15,6 +15,7 @@ type ContentPresenter interface {
 	Create(ctx *gin.Context, outputData *response.ContentCreateOutput)
 	PresentError(ctx *gin.Context, status int, message string)
 	List(ctx *gin.Context, outputData *response.ContentListOutput)
+	GetByID(ctx *gin.Context, outputData *response.ContentItemOutput)
 }
 
 type ContentPresenterImpl struct{}
@@ -37,9 +38,9 @@ func (p *ContentPresenterImpl) PresentError(ctx *gin.Context, status int, messag
 }
 
 func (p *ContentPresenterImpl) List(ctx *gin.Context, outputData *response.ContentListOutput) {
-	items := make([]model.ContentListItemData, 0, len(outputData.Contents))
+	items := make([]model.ContentItemData, 0, len(outputData.Contents))
 	for _, it := range outputData.Contents {
-		items = append(items, model.ContentListItemData{
+		items = append(items, model.ContentItemData{
 			ID:        it.ID,
 			Title:     it.Title,
 			Genre:     it.Genre,
@@ -53,5 +54,21 @@ func (p *ContentPresenterImpl) List(ctx *gin.Context, outputData *response.Conte
 	}
 
 	responseData := &model.ContentListResponseData{Contents: items}
+	ctx.JSON(http.StatusOK, responseData)
+}
+
+func (p *ContentPresenterImpl) GetByID(ctx *gin.Context, outputData *response.ContentItemOutput) {
+	responseData := &model.ContentItemData{
+		ID:        outputData.ID,
+		Title:     outputData.Title,
+		Genre:     outputData.Genre,
+		Review:    outputData.Review,
+		Notes:     outputData.Notes,
+		Tag:       outputData.Tag,
+		Score:     outputData.Score,
+		CreatedAt: outputData.CreatedAt.Format(time.RFC3339),
+		UpdatedAt: outputData.UpdatedAt.Format(time.RFC3339),
+	}
+
 	ctx.JSON(http.StatusOK, responseData)
 }

@@ -6,8 +6,8 @@ type ContentCreateOutput struct {
 	ID string
 }
 
-// ContentListItem represents a single content in list responses.
-type ContentListItem struct {
+// ContentItemOutput represents a single content in list responses.
+type ContentItemOutput struct {
 	ID        string
 	Title     string
 	Genre     string
@@ -21,5 +21,5 @@ type ContentListItem struct {
 
 // ContentListOutput is the top-level response for list API.
 type ContentListOutput struct {
-	Contents []ContentListItem
+	Contents []ContentItemOutput
 }

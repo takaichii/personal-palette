@@ -13,7 +13,3 @@ type ContentDTO struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
-
-func (ContentDTO) TableName() string {
-	return "contents"
-}

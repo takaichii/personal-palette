@@ -66,3 +66,24 @@ func (r *ContentRepository) List(ctx context.Context) ([]*entity.Content, error)
 
 	return contents, nil
 }
+
+func (r *ContentRepository) GetByID(ctx context.Context, id string) (*entity.Content, error) {
+	var dto dto.ContentDTO
+	if err := r.db.Conn.WithContext(ctx).First(&dto, "id = ?", id).Error; err != nil {
+		return nil, err
+	}
+
+	content := entity.NewContentFromRecord(
+		dto.ID,
+		dto.Title,
+		dto.Genre,
+		dto.Review,
+		dto.Notes,
+		dto.Tag,
+		dto.Score,
+		dto.CreatedAt,
+		dto.UpdatedAt,
+	)
+
+	return content, nil
+}

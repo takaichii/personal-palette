@@ -46,9 +46,9 @@ func (i *ContentInteractor) List(ctx context.Context) (*response.ContentListOutp
 		return nil, err
 	}
 
-	items := make([]response.ContentListItem, 0, len(entities))
+	items := make([]response.ContentItemOutput, 0, len(entities))
 	for _, e := range entities {
-		items = append(items, response.ContentListItem{
+		items = append(items, response.ContentItemOutput{
 			ID:        e.ID(),
 			Title:     e.Title(),
 			Genre:     e.Genre(),
@@ -62,4 +62,23 @@ func (i *ContentInteractor) List(ctx context.Context) (*response.ContentListOutp
 	}
 
 	return &response.ContentListOutput{Contents: items}, nil
+}
+
+func (i *ContentInteractor) GetByID(ctx context.Context, id string) (*response.ContentItemOutput, error) {
+	entities, err := i.contentRepository.GetByID(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.ContentItemOutput{
+		ID:        entities.ID(),
+		Title:     entities.Title(),
+		Genre:     entities.Genre(),
+		Review:    entities.Review(),
+		Notes:     entities.Notes(),
+		Tag:       entities.Tag(),
+		Score:     entities.Score(),
+		CreatedAt: entities.CreatedAt(),
+		UpdatedAt: entities.UpdatedAt(),
+	}, nil
 }
