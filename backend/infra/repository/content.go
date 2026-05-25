@@ -2,11 +2,14 @@ package repository
 
 import (
 	"context"
+	"errors"
 
+	"github.com/takazu8108180/personal-palette/backend/domain"
 	"github.com/takazu8108180/personal-palette/backend/domain/entity"
 	"github.com/takazu8108180/personal-palette/backend/domain/repository"
 	"github.com/takazu8108180/personal-palette/backend/infra/database"
 	"github.com/takazu8108180/personal-palette/backend/infra/repository/dto"
+	"gorm.io/gorm"
 )
 
 type ContentRepository struct {
@@ -70,6 +73,9 @@ func (r *ContentRepository) List(ctx context.Context) ([]*entity.Content, error)
 func (r *ContentRepository) GetByID(ctx context.Context, id string) (*entity.Content, error) {
 	var dto dto.ContentDTO
 	if err := r.db.Conn.WithContext(ctx).First(&dto, "id = ?", id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, domain.ErrNotFound
+		}
 		return nil, err
 	}
 

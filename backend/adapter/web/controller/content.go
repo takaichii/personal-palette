@@ -1,11 +1,13 @@
 package controller
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/takazu8108180/personal-palette/backend/adapter/web/model"
 	"github.com/takazu8108180/personal-palette/backend/adapter/web/presenter"
+	"github.com/takazu8108180/personal-palette/backend/domain"
 	"github.com/takazu8108180/personal-palette/backend/usecase"
 	"github.com/takazu8108180/personal-palette/backend/usecase/request"
 )
@@ -71,6 +73,10 @@ func (c *ContentControllerImpl) GetByID(ctx *gin.Context) {
 	id := ctx.Param("id")
 	outputData, err := c.usecase.GetByID(ctx, id)
 	if err != nil {
+		if errors.Is(err, domain.ErrNotFound) {
+			c.presenter.PresentError(ctx, http.StatusNotFound, "content not found")
+			return
+		}
 		c.presenter.PresentError(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
