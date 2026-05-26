@@ -93,3 +93,14 @@ func (r *ContentRepository) GetByID(ctx context.Context, id string) (*entity.Con
 
 	return content, nil
 }
+
+func (r *ContentRepository) Delete(ctx context.Context, id string) error {
+	result := r.db.Conn.WithContext(ctx).Where("id = ?", id).Delete(&dto.ContentDTO{})
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected == 0 {
+		return domain.ErrNotFound
+	}
+	return nil
+}

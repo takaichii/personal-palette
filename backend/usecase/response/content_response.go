@@ -23,3 +23,4 @@ type ContentItemOutput struct {
 type ContentListOutput struct {
 	Contents []ContentItemOutput
 }
+
