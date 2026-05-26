@@ -16,6 +16,7 @@ type ContentPresenter interface {
 	PresentError(ctx *gin.Context, status int, message string)
 	List(ctx *gin.Context, outputData *response.ContentListOutput)
 	GetByID(ctx *gin.Context, outputData *response.ContentItemOutput)
+	Delete(ctx *gin.Context)
 }
 
 type ContentPresenterImpl struct{}
@@ -71,4 +72,8 @@ func (p *ContentPresenterImpl) GetByID(ctx *gin.Context, outputData *response.Co
 	}
 
 	ctx.JSON(http.StatusOK, responseData)
+}
+
+func (p *ContentPresenterImpl) Delete(ctx *gin.Context) {
+	ctx.Status(http.StatusNoContent)
 }

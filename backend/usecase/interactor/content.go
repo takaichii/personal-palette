@@ -82,3 +82,7 @@ func (i *ContentInteractor) GetByID(ctx context.Context, id string) (*response.C
 		UpdatedAt: entities.UpdatedAt(),
 	}, nil
 }
+
+func (i *ContentInteractor) Delete(ctx context.Context, id string) error {
+	return i.contentRepository.Delete(ctx, id)
+}

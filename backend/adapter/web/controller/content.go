@@ -19,7 +19,7 @@ type ContentController interface {
 	List(c *gin.Context)
 	GetByID(c *gin.Context)
 	// UpdateUser(c *gin.Context)
-	// DeleteUser(c *gin.Context)
+	Delete(c *gin.Context)
 }
 
 type ContentControllerImpl struct {
@@ -82,4 +82,19 @@ func (c *ContentControllerImpl) GetByID(ctx *gin.Context) {
 	}
 
 	c.presenter.GetByID(ctx, outputData)
+}
+
+func (c *ContentControllerImpl) Delete(ctx *gin.Context) {
+	id := ctx.Param("id")
+	err := c.usecase.Delete(ctx, id)
+	if err != nil {
+		if errors.Is(err, domain.ErrNotFound) {
+			c.presenter.PresentError(ctx, http.StatusNotFound, "content not found")
+			return
+		}
+		c.presenter.PresentError(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.presenter.Delete(ctx)
 }

@@ -14,5 +14,5 @@ func AttachRouter(router *gin.RouterGroup, controllers *Controllers) {
 	router.GET("/contents", controllers.ContentController.List)
 	router.GET("/contents/:id", controllers.ContentController.GetByID)
 	// router.PUT("/users/:id", controllers.UserController.UpdateUser)
-	// router.DELETE("/users/:id", controllers.UserController.DeleteUser)
+	router.DELETE("/contents/:id", controllers.ContentController.Delete)
 }
